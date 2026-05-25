@@ -2,11 +2,18 @@
   "name": "my-project",
   "version": "0.1.0",
   "private": true,
+  "description": "Sara Dental Clinic desktop application wrapped with Electron.",
+  "author": "Sara Dental Clinic <info@sara-dental-clinic.com>",
+  "main": "electron/main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "electron:dev": "cross-env NODE_ENV=development electron .",
+    "electron:start": "cross-env NODE_ENV=production electron .",
+    "electron:build": "cross-env NODE_ENV=production next build && electron-builder",
+    "electron:build-win": "cross-env NODE_ENV=production next build && electron-builder --win portable"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -68,9 +75,37 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^7.0.3",
+    "electron": "^26.3.0",
+    "electron-builder": "^24.8.0",
     "postcss": "^8.5",
     "tailwindcss": "^4.2.0",
     "tw-animate-css": "1.3.3",
     "typescript": "5.7.3"
+  },
+  "build": {
+    "appId": "com.sara.dentalclinic",
+    "productName": "Sara Dental Clinic",
+    "icon": "build/icon.ico",
+    "asar": false,
+    "files": [
+      "**/*"
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Utility"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    }
   }
 }
