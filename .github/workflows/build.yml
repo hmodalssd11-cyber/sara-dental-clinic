@@ -24,10 +24,12 @@ jobs:
           cache: 'pnpm'
 
       - name: Enable Corepack
-        run: corepack enable
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
 
       - name: Install dependencies
-        run: corepack pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build Electron Windows portable EXE
         run: corepack pnpm run electron:build-win
